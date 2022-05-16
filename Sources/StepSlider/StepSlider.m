@@ -191,13 +191,17 @@ void withoutCAAnimation(withoutAnimationBlock code)
         _sliderCircleLayer.contents = (__bridge id)self.sliderCircleImage.CGImage;
         _sliderCircleLayer.contentsGravity = kCAGravityCenter;
     } else {
-        CGFloat sliderFrameSide = fmaxf(self.sliderCircleRadius * 2.f, 44.f);
+        CGFloat sliderFrameSide = self.sliderCircleRadius * 2.f;
         CGRect  sliderDrawRect  = CGRectMake((sliderFrameSide - sliderDiameter) / 2.f, (sliderFrameSide - sliderDiameter) / 2.f, sliderDiameter, sliderDiameter);
         
-        _sliderCircleLayer.contents  = nil;
         _sliderCircleLayer.frame     = CGRectMake(0.f, 0.f, sliderFrameSide, sliderFrameSide);
         _sliderCircleLayer.path      = [UIBezierPath bezierPathWithRoundedRect:sliderDrawRect cornerRadius:sliderFrameSide / 2].CGPath;
         _sliderCircleLayer.fillColor = [self.sliderCircleColor CGColor];
+        _sliderCircleLayer.shadowOffset = CGSizeMake(0, 2);
+        _sliderCircleLayer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.12].CGColor;
+        _sliderCircleLayer.shadowRadius = 10;
+        _sliderCircleLayer.shadowOpacity = 1;
+        _sliderCircleLayer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, sliderFrameSide - 5, sliderFrameSide - 5) cornerRadius: 2].CGPath;
     }
     _sliderCircleLayer.position = CGPointMake(contentFrame.origin.x + stepWidth * self.index, CGRectGetMidY(contentFrame));
 
